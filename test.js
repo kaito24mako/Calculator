@@ -8,6 +8,7 @@ const numberKeys = document.querySelectorAll("button.number");
 const operatorKeys = document.querySelectorAll("button.operator");
 const displayOutput = document.querySelector("#display");
 let array = [];
+let currentNumber = "";
 
 // Operator functions
 const getAdd = function(a, b) {
@@ -40,22 +41,32 @@ const operate = function(a, b, operator) {
             result = getDivide(a, b);
     }
     displayOutput.textContent = result;
+    return result;
 }
 
 // Display shows the number that the user pressed on
 function keyClick(event) {
     if (event.target.classList.contains("number")) {
-        displayOutput.textContent = event.target.textContent;
-        let userNumber = Number(displayOutput.textContent);
-        array.push(userNumber);
-        a = array[0];
-        b = array[1];
-        console.log(array);
+        currentNumber += event.target.textContent;
+        displayOutput.textContent = currentNumber;
+        
     } else if (event.target.classList.contains("operator")) {
+        if (operator !== "" && currentNumber !== "") {
+            b = Number(currentNumber);
+            a = operate(a, b, operator);
+            displayOutput.textContent = a;
+        } else {
+            a = Number(currentNumber);
+        }
         operator = event.target.id;
-        console.log(operator);
+        currentNumber = "";
+
     } else if (event.target.classList.contains("equal")) {
-        console.log(operate(a, b, operator));
+        if (operator !== "" && currentNumber !== "") {
+            b = Number(currentNumber);
+            a = operate(a, b, operator);
+            operator = "";  // reset operator after equals
+        }
     }
 }
 

@@ -40,6 +40,8 @@ const operate = function(a, b, operator) {
             result = getDivide(a, b);
     }
     displayOutput.textContent = result;
+    a = result;
+    return result;
 }
 
 // Display shows the number that the user pressed on
