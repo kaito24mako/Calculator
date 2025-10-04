@@ -36,3 +36,17 @@ const operate = function(number1, number2, operator) {
     }
     return result;
 }
+
+// Display shows the number that the user pressed on
+const keys = document.querySelectorAll(".number");
+const displayOutput = document.querySelector("#display");
+
+function keyClick(event) {
+    displayOutput.textContent = event.target.textContent;
+    let userNumber = displayOutput.textContent;
+    return userNumber;
+}
+
+keys.forEach(key => {
+    key.addEventListener("click", keyClick);
+})
