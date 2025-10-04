@@ -11,15 +11,14 @@ const getMultiply = function(a, b) {
 const getDivide = function(a, b) {
     return a / b;
 }
-console.log(getMultiply(1, 3));
 
 // Variables for the three parts of an operation 
-let number1 = 3;
-let number2 = 5;
-let operator = add;
+let a = 0;
+let b = 0;
+let operator = "";
 
 // Operates on the given numbers 
-const operate = function(number1, number2, operator) {
+const operate = function(a, b, operator) {
     let result = 0;
     switch(operator) {
         case "add":
@@ -36,17 +35,33 @@ const operate = function(number1, number2, operator) {
     }
     return result;
 }
+console.log(operate(1, 3, "add"));
 
 // Display shows the number that the user pressed on
-const keys = document.querySelectorAll(".number");
+const keys = document.querySelectorAll("button");
+const numberKeys = document.querySelectorAll("button.number");
+const operatorKeys = document.querySelectorAll("button.operator");
 const displayOutput = document.querySelector("#display");
+let array = [];
 
 function keyClick(event) {
-    displayOutput.textContent = event.target.textContent;
-    let userNumber = displayOutput.textContent;
-    return userNumber;
+    if (event.target.classList.contains("number")) {
+        displayOutput.textContent = event.target.textContent;
+        let userNumber = displayOutput.textContent;
+        array.push(userNumber);
+        console.log(array);
+        return userNumber;
+    } else if (event.target.classList.contains("operator")) {
+        let userOperator = event.target.textContent;
+        console.log(userOperator);
+        return userOperator;
+    }
 }
 
 keys.forEach(key => {
     key.addEventListener("click", keyClick);
 })
+
+// Calculator logic 
+
+
