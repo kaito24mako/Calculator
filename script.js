@@ -35,7 +35,6 @@ const operate = function(a, b, operator) {
     }
     return result;
 }
-console.log(operate(1, 3, "add"));
 
 // Display shows the number that the user pressed on
 const keys = document.querySelectorAll("button");
@@ -47,14 +46,16 @@ let array = [];
 function keyClick(event) {
     if (event.target.classList.contains("number")) {
         displayOutput.textContent = event.target.textContent;
-        let userNumber = displayOutput.textContent;
+        let userNumber = Number(displayOutput.textContent);
         array.push(userNumber);
+        a = array[0];
+        b = array[1];
         console.log(array);
-        return userNumber;
     } else if (event.target.classList.contains("operator")) {
-        let userOperator = event.target.textContent;
-        console.log(userOperator);
-        return userOperator;
+        operator = event.target.id;
+        console.log(operator);
+    } else if (event.target.classList.contains("equal")) {
+        console.log(operate(a, b, operator));
     }
 }
 
@@ -62,6 +63,6 @@ keys.forEach(key => {
     key.addEventListener("click", keyClick);
 })
 
-// Calculator logic 
+
 
 
