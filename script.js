@@ -9,6 +9,9 @@ const operatorKeys = document.querySelectorAll("button.operator");
 const displayOutput = document.querySelector("#display");
 let array = [];
 
+let firstNumber = 0;
+let secondNumber = 0;
+
 // Operator functions
 const getAdd = function(a, b) {
     return a + b;
@@ -24,8 +27,10 @@ const getDivide = function(a, b) {
 }
 
 // Operates on the given numbers 
-const operate = function(a, b, operator) {
+const operate = function() {
     let result = 0;
+    let a = Number(firstNumber);
+    let b = Number(secondNumber);
     switch(operator) {
         case "add":
             result = getAdd(a, b);
@@ -40,7 +45,6 @@ const operate = function(a, b, operator) {
             result = getDivide(a, b);
     }
     displayOutput.textContent = result;
-    a = result;
     return result;
 }
 
@@ -48,16 +52,18 @@ const operate = function(a, b, operator) {
 function keyClick(event) {
     if (event.target.classList.contains("number")) {
         displayOutput.textContent = event.target.textContent;
-        let userNumber = Number(displayOutput.textContent);
+        currentNumber += Number(event.target.textContent);
+        console.log(currentNumber);
+        /* let userNumber = Number(displayOutput.textContent);
         array.push(userNumber);
         a = array[0];
         b = array[1];
-        console.log(array);
+        console.log(array); */
     } else if (event.target.classList.contains("operator")) {
         operator = event.target.id;
         console.log(operator);
     } else if (event.target.classList.contains("equal")) {
-        console.log(operate(a, b, operator));
+        console.log(operate());
     }
 }
 
