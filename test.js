@@ -42,14 +42,14 @@ function operate(operator, a, b) {
             break;
         case "/":
             if (b === 0) {     
-                result = "Error";   // message "error" if divided by 0 
+                alert("You cannot divide a number by 0, dumbie...");  
             } else {
                 result = divide(a, b);
             }
             break;
     };
     if (result.toString().length > 3) {
-        return result.toFixed(2);   // round to two decimals 
+        return result.toFixed(2);  
     } else {
         return result;
     }
@@ -84,7 +84,7 @@ function displayNumbers(event) {
     } else if (event.target.classList.contains("equal")) {
         nextNumber = Number(display.textContent);
         display.textContent = operate(operator, currentNumber, nextNumber);
-        
+
         operatorClicked = false;
     }
 }
