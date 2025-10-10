@@ -55,8 +55,9 @@ function operate(operator, a, b) {
     }
 }
 
-// Key clicks
-function clickCalculations(event) {
+// Calculator key clicks
+function clickEvents(event) {
+
     if (event.target.classList.contains("number") && (!numberClicked)) {
         display.textContent += event.target.textContent;
 
@@ -94,11 +95,14 @@ function clickCalculations(event) {
         operator = "";
         numberClicked = false;
         operatorClicked = false;
+
+    } else if (event.target.classList.contains("delete")) {
+        display.textContent = display.textContent.slice(0, -1);
     }
 }
 
 keys.forEach(key => {
-    key.addEventListener("click", clickCalculations);
+    key.addEventListener("click", clickEvents);
 })
 
 
