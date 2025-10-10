@@ -79,9 +79,14 @@ button {
     height: 4rem;
     flex: 1 0 auto;
     border-radius: 10px;
-    border-color: white;
+    border-color: rgba(255, 255, 255, 0.233);
     font-size: 1.1rem;
-    background-color: rgb(236, 235, 235);
+    background-color: rgb(221, 221, 221);
+    transition: 0.2s ease;
+}
+button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 3px 6px grey;
 }
 .final-keys {
     display: flex;
@@ -91,7 +96,7 @@ button {
     width: 8em;
     flex: 1 0 auto;
 }
-.keys #divide, #multiply, #subtract, #add {
+.keys .operator {
     background-color: rgb(247, 163, 37);
     color: rgb(253, 246, 246);
 }
@@ -115,3 +120,4 @@ button {
     align-items: center;
     padding: 15px;
 }
+
