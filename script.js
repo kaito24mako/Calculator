@@ -1,76 +1,87 @@
 // Variables
-let a = 0;
-let b = 0;
+
+let currentNumber = 0;
+let nextNumber = 0;
 let operator = "";
+let operatorClicked = false;
 
-const keys = document.querySelectorAll("button");
-const numberKeys = document.querySelectorAll("button.number");
-const operatorKeys = document.querySelectorAll("button.operator");
-const displayOutput = document.querySelector("#display");
-let array = [];
+// Basic operators 
 
-let firstNumber = 0;
-let secondNumber = 0;
-
-// Operator functions
-const getAdd = function(a, b) {
+function add(a, b) {
     return a + b;
 }
-const getSubtract = function(a, b) {
+
+function subtract(a, b) {
     return a - b;
 }
-const getMultiply = function(a, b) {
+
+function multiply(a, b) {
     return a * b;
 }
-const getDivide = function(a, b) {
+
+function divide(a, b) {
     return a / b;
 }
 
-// Operates on the given numbers 
-const operate = function() {
+// Operation logic 
+
+function operate(operator, a, b) {
     let result = 0;
-    let a = Number(firstNumber);
-    let b = Number(secondNumber);
-    switch(operator) {
-        case "add":
-            result = getAdd(a, b);
+    switch (operator) {
+        case "+":
+            result = add(a, b);
             break;
-        case "subtract":
-            result = getSubtract(a, b);
+        case "-":
+            result = subtract(a, b);
             break;
-        case "multiply":
-            result = getMultiply(a, b);
+        case "*":
+            result = multiply(a, b);
             break;
-        case "divide":
-            result = getDivide(a, b);
+        case "/":
+            if (b === 0) {     
+                result = "Error";   // message "error" if divided by 0 
+            } else {
+                result = divide(a, b);
+            }
+            break;
+    };
+    if (result.toString().length > 3) {
+        return result.toFixed(2);   // round to two decimals 
+    } else {
+        return result;
     }
-    displayOutput.textContent = result;
-    return result;
 }
 
-// Display shows the number that the user pressed on
-function keyClick(event) {
+// Key clicks
+
+const keys = document.querySelectorAll(".keys");
+const display = document.querySelector("#display");
+
+function displayNumbers(event) {
     if (event.target.classList.contains("number")) {
-        displayOutput.textContent = event.target.textContent;
-        currentNumber += Number(event.target.textContent);
-        console.log(currentNumber);
-        /* let userNumber = Number(displayOutput.textContent);
-        array.push(userNumber);
-        a = array[0];
-        b = array[1];
-        console.log(array); */
-    } else if (event.target.classList.contains("operator")) {
-        operator = event.target.id;
-        console.log(operator);
+        display.textContent += event.target.textContent;
+
+    } else if (event.target.classList.contains("operator") && (operatorClicked === false)) {
+        currentNumber = Number(display.textContent);
+        operator = event.target.textContent;
+        display.textContent = "";
+        operatorClicked = true;
+
+    } else if (event.target.classList.contains("operator") && (operatorClicked === true)) {
+        nextNumber = Number(display.textContent);
+        currentNumber = operate(operator, currentNumber, nextNumber);
+        operator = event.target.textContent;
+        display.textContent = "";
+
     } else if (event.target.classList.contains("equal")) {
-        console.log(operate());
-    }
+        nextNumber = Number(display.textContent);
+        display.textContent = operate(operator, currentNumber, nextNumber);
+        operatorClicked = false;
+    } 
 }
 
 keys.forEach(key => {
-    key.addEventListener("click", keyClick);
+    key.addEventListener("click", displayNumbers);
 })
-
-
 
 
