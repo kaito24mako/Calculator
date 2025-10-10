@@ -56,7 +56,7 @@ function operate(operator, a, b) {
 }
 
 // Key clicks
-function displayNumbers(event) {
+function clickCalculations(event) {
     if (event.target.classList.contains("number") && (!numberClicked)) {
         display.textContent += event.target.textContent;
 
@@ -86,11 +86,19 @@ function displayNumbers(event) {
         display.textContent = operate(operator, currentNumber, nextNumber);
 
         operatorClicked = false;
+
+    } else if (event.target.classList.contains("clear")) {
+        display.textContent = "";
+        currentNumber = 0;
+        nextNumber = 0;
+        operator = "";
+        numberClicked = false;
+        operatorClicked = false;
     }
 }
 
 keys.forEach(key => {
-    key.addEventListener("click", displayNumbers);
+    key.addEventListener("click", clickCalculations);
 })
 
 

@@ -1,8 +1,11 @@
 // Variables
+const keys = document.querySelectorAll(".keys");
+const display = document.querySelector("#display");
 
 let currentNumber = 0;
 let nextNumber = 0;
 let operator = "";
+let numberClicked = false;
 let operatorClicked = false;
 
 // Basic operators 
@@ -39,45 +42,51 @@ function operate(operator, a, b) {
             break;
         case "/":
             if (b === 0) {     
-                result = "Error";   // message "error" if divided by 0 
+                alert("You cannot divide a number by 0, dumbie...");  
             } else {
                 result = divide(a, b);
             }
             break;
     };
     if (result.toString().length > 3) {
-        return result.toFixed(2);   // round to two decimals 
+        return result.toFixed(2);  
     } else {
         return result;
     }
 }
 
 // Key clicks
-
-const keys = document.querySelectorAll(".keys");
-const display = document.querySelector("#display");
-
 function displayNumbers(event) {
-    if (event.target.classList.contains("number")) {
+    if (event.target.classList.contains("number") && (!numberClicked)) {
         display.textContent += event.target.textContent;
 
-    } else if (event.target.classList.contains("operator") && (operatorClicked === false)) {
+    } else if (event.target.classList.contains("number") && (numberClicked)) {
+        display.textContent = "";
+        display.textContent += event.target.textContent;
+
+        numberClicked = false;
+
+    } else if (event.target.classList.contains("operator") && (!operatorClicked)) {
         currentNumber = Number(display.textContent);
         operator = event.target.textContent;
-        display.textContent = "";
+
+        numberClicked = true;
         operatorClicked = true;
 
-    } else if (event.target.classList.contains("operator") && (operatorClicked === true)) {
+    } else if (event.target.classList.contains("operator") && (operatorClicked)) {
         nextNumber = Number(display.textContent);
         currentNumber = operate(operator, currentNumber, nextNumber);
+        display.textContent = currentNumber;
         operator = event.target.textContent;
-        display.textContent = "";
 
+        numberClicked = true;
+        
     } else if (event.target.classList.contains("equal")) {
         nextNumber = Number(display.textContent);
         display.textContent = operate(operator, currentNumber, nextNumber);
+
         operatorClicked = false;
-    } 
+    }
 }
 
 keys.forEach(key => {
