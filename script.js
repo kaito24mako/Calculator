@@ -1,4 +1,5 @@
 // Variables
+
 const keys = document.querySelectorAll(".keys");
 const display = document.querySelector("#display");
 
@@ -55,21 +56,21 @@ function operate(operator, a, b) {
     }
 }
 
-// Key clicks
-function displayNumbers(event) {
+// Calculator key clicks
+
+function clickEvents(event) {
+
     if (event.target.classList.contains("number") && (!numberClicked)) {
         display.textContent += event.target.textContent;
 
     } else if (event.target.classList.contains("number") && (numberClicked)) {
         display.textContent = "";
         display.textContent += event.target.textContent;
-
         numberClicked = false;
 
     } else if (event.target.classList.contains("operator") && (!operatorClicked)) {
         currentNumber = Number(display.textContent);
         operator = event.target.textContent;
-
         numberClicked = true;
         operatorClicked = true;
 
@@ -78,19 +79,29 @@ function displayNumbers(event) {
         currentNumber = operate(operator, currentNumber, nextNumber);
         display.textContent = currentNumber;
         operator = event.target.textContent;
-
         numberClicked = true;
         
     } else if (event.target.classList.contains("equal")) {
         nextNumber = Number(display.textContent);
         display.textContent = operate(operator, currentNumber, nextNumber);
-
         operatorClicked = false;
+
+    } else if (event.target.classList.contains("clear")) {
+        display.textContent = "";
+        currentNumber = 0;
+        nextNumber = 0;
+        operator = "";
+        numberClicked = false;
+        operatorClicked = false;
+
+    } else if (event.target.classList.contains("delete")) {
+        display.textContent = display.textContent.slice(0, -1);
     }
 }
 
 keys.forEach(key => {
-    key.addEventListener("click", displayNumbers);
+    key.addEventListener("click", clickEvents);
 })
+
 
 
