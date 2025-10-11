@@ -2,6 +2,7 @@
 
 const keys = document.querySelectorAll(".keys");
 const display = document.querySelector("#display");
+const clickSound = new Audio("./audio/click.mp3");
 
 let currentNumber = 0;
 let nextNumber = 0;
@@ -101,6 +102,12 @@ function clickEvents(event) {
 
 keys.forEach(key => {
     key.addEventListener("click", clickEvents);
+})
+
+keys.forEach(key => {
+    key.addEventListener("click", () => {
+        clickSound.play();
+    });
 })
 
 
